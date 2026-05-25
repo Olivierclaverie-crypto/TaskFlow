@@ -1,4 +1,17 @@
-    import { useState, useEffect, useRef } from "react";
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8">
+<style>
+body{margin:0;padding:20px;font-family:sans-serif;background:#fdf8f0;}
+button{background:#2B5A9E;color:white;border:none;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;width:100%;}
+#status{margin-top:12px;font-size:14px;color:#2d7a4f;font-weight:600;text-align:center;}
+</style>
+</head>
+<body>
+<button onclick="copyCode()">📋 Copier le code TaskFlow</button>
+<div id="status"></div>
+<script>
+const CODE = `import { useState, useEffect, useRef } from "react";
 
 // ── Tokens ────────────────────────────────────────────────────────────────────
 // ── Home blue warm palette ───────────────────────────────────────────────────
@@ -96,7 +109,7 @@ function nextOccurrence(task) {
 function PriorityDot({p, size=8}){
   const pr = PRIORITY[p]||PRIORITY.normal;
   return <span style={{display:"inline-block",width:size,height:size,borderRadius:"50%",
-    background:pr.color,flexShrink:0,boxShadow:`0 0 6px ${pr.color}88`}}/>;
+    background:pr.color,flexShrink:0,boxShadow:\`0 0 6px \${pr.color}88\`}}/>;
 }
 
 function Btn({onClick,children,variant="ghost",style={},disabled=false}){
@@ -104,11 +117,11 @@ function Btn({onClick,children,variant="ghost",style={},disabled=false}){
     borderRadius:8,fontSize:13,fontWeight:600,padding:"8px 14px",transition:"all .15s",opacity:disabled?.4:1};
   const v={
     ghost:{background:"transparent",color:C.muted},
-    primary:{background:C.accent,color:"#fff",boxShadow:`0 2px 12px ${C.accent}55`},
-    outline:{background:"transparent",color:C.accent,border:`1.5px solid ${C.accentBorder}`},
-    soft:{background:C.accentDim,color:C.accent,border:`1px solid ${C.accentBorder}`},
-    danger:{background:C.redDim,color:C.red,border:`1px solid ${C.redBorder}`},
-    success:{background:C.greenDim,color:C.green,border:`1px solid ${C.greenBorder}`},
+    primary:{background:C.accent,color:"#fff",boxShadow:\`0 2px 12px \${C.accent}55\`},
+    outline:{background:"transparent",color:C.accent,border:\`1.5px solid \${C.accentBorder}\`},
+    soft:{background:C.accentDim,color:C.accent,border:\`1px solid \${C.accentBorder}\`},
+    danger:{background:C.redDim,color:C.red,border:\`1px solid \${C.redBorder}\`},
+    success:{background:C.greenDim,color:C.green,border:\`1px solid \${C.greenBorder}\`},
   };
   return <button onClick={disabled?undefined:onClick} style={{...base,...v[variant],...style}}>{children}</button>;
 }
@@ -136,7 +149,7 @@ function Modal({open,onClose,title,children}){
 }
 
 const iStyle = {
-  background:C.surface, border:`1.5px solid ${C.border}`, color:C.ink,
+  background:C.surface, border:\`1.5px solid \${C.border}\`, color:C.ink,
   padding:"10px 14px", borderRadius:10, fontSize:14, outline:"none",
   fontFamily:"inherit", width:"100%", boxSizing:"border-box", transition:"border .15s",
 };
@@ -149,16 +162,16 @@ function TaskCard({task, onDone, onDelete, onEdit}){
   const [expanded, setExpanded] = useState(false);
 
   return(
-    <div style={{background:C.card,borderRadius:12,border:`1px solid ${isLate?C.redBorder:C.border}`,
+    <div style={{background:C.card,borderRadius:12,border:\`1px solid \${isLate?C.redBorder:C.border}\`,
       overflow:"hidden",transition:"all .2s",
-      boxShadow:isLate?`0 0 12px ${C.red}22`:"none"}}>
+      boxShadow:isLate?\`0 0 12px \${C.red}22\`:"none"}}>
       {/* Priority bar */}
       <div style={{height:3,background:pr.color,opacity:.8}}/>
       <div style={{padding:"12px 14px"}}>
         <div style={{display:"flex",gap:10,alignItems:"flex-start"}}>
           {/* Checkbox */}
           <button onClick={()=>onDone(task)} style={{
-            width:22,height:22,borderRadius:6,border:`2px solid ${task.done?C.green:C.border}`,
+            width:22,height:22,borderRadius:6,border:\`2px solid \${task.done?C.green:C.border}\`,
             background:task.done?C.green:"transparent",flexShrink:0,marginTop:1,
             display:"flex",alignItems:"center",justifyContent:"center",
             cursor:"pointer",transition:"all .2s",color:"#000",fontSize:13,fontWeight:800}}>
@@ -171,7 +184,7 @@ function TaskCard({task, onDone, onDelete, onEdit}){
                 {task.title}
               </span>
               {task.recurrence!=="none"&&<span style={{fontSize:10,color:C.accent,
-                background:C.accentDim,border:`1px solid ${C.accentBorder}`,
+                background:C.accentDim,border:\`1px solid \${C.accentBorder}\`,
                 padding:"1px 6px",borderRadius:10,flexShrink:0}}>🔁</span>}
             </div>
             <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
@@ -181,7 +194,7 @@ function TaskCard({task, onDone, onDelete, onEdit}){
                 <>
                   <span style={{fontSize:11,color:C.subtle}}>·</span>
                   <span style={{fontSize:11,color:isLate?C.red:C.muted,fontWeight:isLate?700:400}}>
-                    {isLate?`⚠ ${late}j de retard`:fmtShort(task.dueDate)}
+                    {isLate?\`⚠ \${late}j de retard\`:fmtShort(task.dueDate)}
                   </span>
                 </>
               )}
@@ -201,7 +214,7 @@ function TaskCard({task, onDone, onDelete, onEdit}){
         </div>
         {/* Expanded content */}
         {expanded&&task.content&&(
-          <div style={{marginTop:10,paddingTop:10,borderTop:`1px solid ${C.border}`,
+          <div style={{marginTop:10,paddingTop:10,borderTop:\`1px solid \${C.border}\`,
             fontSize:13,color:C.muted,lineHeight:1.65,paddingLeft:32}}>
             {task.content}
           </div>
@@ -209,12 +222,12 @@ function TaskCard({task, onDone, onDelete, onEdit}){
         {expanded&&task.content&&(
           <div style={{display:"flex",gap:8,marginTop:10,paddingLeft:32}}>
             <Btn onClick={()=>{
-              const txt=`${task.title}\n\n${task.content||""}${task.dueDate?`\n\nÉchéance : ${fmtShort(task.dueDate)}`:""}`;
+              const txt=\`\${task.title}\\n\\n\${task.content||""}\${task.dueDate?\`\\n\\nÉchéance : \${fmtShort(task.dueDate)}\`:""}\`;
               const sub=encodeURIComponent(task.title);
-              window.location.href=`mailto:?subject=${sub}&body=${encodeURIComponent(txt)}`;
+              window.location.href=\`mailto:?subject=\${sub}&body=\${encodeURIComponent(txt)}\`;
             }} variant="outline" style={{fontSize:11,padding:"4px 10px"}}>📧 Envoyer</Btn>
             <Btn onClick={()=>{
-              const txt=`${task.title}\n${task.content||""}`;
+              const txt=\`\${task.title}\\n\${task.content||""}\`;
               navigator.clipboard.writeText(txt);
             }} variant="soft" style={{fontSize:11,padding:"4px 10px"}}>📋 Copier</Btn>
           </div>
@@ -256,7 +269,7 @@ function TaskForm({initial, onSave, onCancel}){
         <div style={{display:"flex",gap:8}}>
           {Object.entries(PRIORITY).map(([key,pr])=>(
             <button key={key} onClick={()=>setPriority(key)} style={{
-              flex:1,padding:"8px 4px",borderRadius:10,border:`1.5px solid ${priority===key?pr.color:C.border}`,
+              flex:1,padding:"8px 4px",borderRadius:10,border:\`1.5px solid \${priority===key?pr.color:C.border}\`,
               background:priority===key?pr.dim:"transparent",color:priority===key?pr.color:C.muted,
               cursor:"pointer",fontFamily:"inherit",fontSize:12,fontWeight:600,transition:"all .15s",
             }}>{pr.icon}<br/><span style={{fontSize:10}}>{pr.label}</span></button>
@@ -277,7 +290,7 @@ function TaskForm({initial, onSave, onCancel}){
         <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
           {RECURRENCE.map(r=>(
             <button key={r.id} onClick={()=>setRecurrence(r.id)} style={{
-              padding:"6px 12px",borderRadius:20,border:`1.5px solid ${recurrence===r.id?C.accent:C.border}`,
+              padding:"6px 12px",borderRadius:20,border:\`1.5px solid \${recurrence===r.id?C.accent:C.border}\`,
               background:recurrence===r.id?C.accentDim:"transparent",
               color:recurrence===r.id?C.accent:C.muted,
               cursor:"pointer",fontFamily:"inherit",fontSize:12,fontWeight:600,transition:"all .15s",
@@ -378,17 +391,17 @@ export default function TaskFlow(){
 
   return(
     <div style={{minHeight:"100vh",background:C.bg,color:C.ink,
-      fontFamily:"'Phenomena'",position:"relative"}}>
+      fontFamily:"'Nunito', sans-serif",position:"relative"}}>
 
       {/* ── Header ── */}
-      <div style={{background:C.surface,borderBottom:`1px solid ${C.border}`,
+      <div style={{background:C.surface,borderBottom:\`1px solid \${C.border}\`,
         padding:"16px 16px 14px",position:"sticky",top:0,zIndex:100}}>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",maxWidth:900,margin:"0 auto"}}>
           <div>
             <div style={{display:"flex",alignItems:"baseline",gap:10}}>
               <span style={{fontSize:20,fontWeight:900,color:C.accent,letterSpacing:-1}}>TaskFlow</span>
               <span style={{fontSize:11,color:C.subtle,fontFamily:"monospace"}}>
-                {activeTasks.length} actives{urgentCount>0?` · ${urgentCount} urgentes`:""}
+                {activeTasks.length} actives{urgentCount>0?\` · \${urgentCount} urgentes\`:""}
               </span>
             </div>
             <div style={{fontSize:11,color:C.muted,marginTop:2}}>
@@ -398,7 +411,7 @@ export default function TaskFlow(){
           <button onClick={()=>setFormOpen(true)}
             style={{height:38,padding:"0 18px",borderRadius:10,background:C.accent,border:"none",
               color:"#fff",fontSize:13,fontWeight:700,cursor:"pointer",fontFamily:"inherit",
-              display:"flex",alignItems:"center",gap:6,boxShadow:`0 2px 14px ${C.accent}55`}}>
+              display:"flex",alignItems:"center",gap:6,boxShadow:\`0 2px 14px \${C.accent}55\`}}>
             + Tâche
           </button>
         </div>
@@ -436,7 +449,7 @@ export default function TaskFlow(){
               Aujourd'hui ({todayTasks.length})
             </div>
             {todayTasks.length===0
-              ? <div style={{background:C.card,borderRadius:12,border:`1px dashed ${C.border}`,
+              ? <div style={{background:C.card,borderRadius:12,border:\`1px dashed \${C.border}\`,
                   padding:"24px",textAlign:"center",color:C.subtle,fontSize:13}}>
                   Aucune tâche pour aujourd'hui 🎉
                 </div>
@@ -500,7 +513,7 @@ export default function TaskFlow(){
 
             return(
               <div key={day} style={{background:isToday?C.hover:C.card,borderRadius:10,
-                border:`1.5px solid ${isToday?C.accent:C.border}`,
+                border:\`1.5px solid \${isToday?C.accent:C.border}\`,
                 padding:"10px 12px",opacity:isPast&&!isToday?.65:1,
                 minHeight:50}}>
                 {/* Day header */}
@@ -509,7 +522,7 @@ export default function TaskFlow(){
                     <div style={{width:28,height:28,borderRadius:8,
                       background:isToday?C.accent:C.surface,
                       display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-                      border:`1px solid ${isToday?C.accent:C.border}`}}>
+                      border:\`1px solid \${isToday?C.accent:C.border}\`}}>
                       <span style={{fontSize:7,color:isToday?"#fff":C.muted,textTransform:"uppercase",
                         lineHeight:1,letterSpacing:.3}}>
                         {d.toLocaleDateString("fr-FR",{weekday:"short"}).slice(0,3)}
@@ -522,11 +535,11 @@ export default function TaskFlow(){
                   </div>
                   <div style={{display:"flex",gap:4}}>
                     {dayTasks.length>0&&<span style={{fontSize:10,background:C.accentDim,color:C.accent,
-                      border:`1px solid ${C.accentBorder}`,padding:"1px 6px",borderRadius:10,fontWeight:700}}>
+                      border:\`1px solid \${C.accentBorder}\`,padding:"1px 6px",borderRadius:10,fontWeight:700}}>
                       {dayTasks.length} tâche{dayTasks.length>1?"s":""}
                     </span>}
                     {dayEvents.length>0&&<span style={{fontSize:10,background:C.blueDim,color:C.blue,
-                      border:`1px solid ${C.blue}44`,padding:"1px 6px",borderRadius:10,fontWeight:700}}>
+                      border:\`1px solid \${C.blue}44\`,padding:"1px 6px",borderRadius:10,fontWeight:700}}>
                       {dayEvents.length} RDV
                     </span>}
                   </div>
@@ -535,7 +548,7 @@ export default function TaskFlow(){
                 {/* Tasks */}
                 {dayTasks.map(t=>(
                   <div key={t.id} style={{display:"flex",alignItems:"center",gap:6,
-                    padding:"3px 0",borderBottom:`1px solid ${C.border}`}}>
+                    padding:"3px 0",borderBottom:\`1px solid \${C.border}\`}}>
                     <PriorityDot p={t.priority} size={6}/>
                     <span style={{fontSize:12,color:C.ink,flex:1,overflow:"hidden",
                       textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{t.title}</span>
@@ -580,17 +593,27 @@ export default function TaskFlow(){
         </div>
       </Modal>
 
-      <style>{`
+      <style>{\`
         * { box-sizing: border-box; }
-        @import url('https://fonts.cdnfonts.com/css/phenomena');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap');
         ::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-track{background:transparent}
         ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
-        input:focus,textarea:focus{border-color:${C.accent} !important}
+        input:focus,textarea:focus{border-color:\${C.accent} !important}
         button:active{transform:scale(.97)}
         @media(max-width:600px){
           .split{grid-template-columns:1fr !important}
         }
-      `}</style>
+      \`}</style>
     </div>
   );
 }
+`;
+function copyCode(){
+  navigator.clipboard.writeText(CODE).then(()=>{
+    document.getElementById('status').textContent='✓ Copié ! Colle dans GitHub src/App.jsx';
+    document.querySelector('button').textContent='✓ Copié !';
+  });
+}
+</script>
+</body>
+</html>
